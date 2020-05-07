@@ -1,0 +1,11 @@
+[reddit]
+client_id=REQUIRED
+client_secret=REQUIRED
+mod_username=REQUIRED
+mod_password=REQUIRED
+subreddit=REQUIRED
+
+[rule]
+;max_posts=OPTIONAL, Default 5
+;cooldown_in_hours=OPTIONAL, Default 5
+;removal_reason_id= OPTIONAL, Default None
