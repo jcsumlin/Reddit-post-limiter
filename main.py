@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 
 import praw
+
+from praw.exceptions import RedditAPIException
 from loguru import logger
 import configparser
 import os
@@ -48,8 +50,15 @@ for submission in subreddit.stream.submissions():
         if (datetime.utcnow() - timedelta(hours=COOLDOWN_HRS)) < first_post.post_time:
             logger.info(f"Post violates frequency rule {submission.id}")
             if REMOVAL_REASON_ID:
-                reason = subreddit.mod.removal_reasons[REMOVAL_REASON_ID]
-                submission.mod.remove(reason_id=reason.id)
+                try:
+                    reason = subreddit.mod.removal_reasons[REMOVAL_REASON_ID]
+                    submission.mod.remove(reason_id=reason.id)
+                except praw.exceptions.RedditAPIException as e:
+                    logger.exception(f"Could not remove post properly: {e}", )
+                    pass
+            else:
+                submission.mod.remove()
+
             timeleft = (first_post.post_time + timedelta(hours=COOLDOWN_HRS))
             submission.mod.remove()
             comment = submission.reply(f"Hey there {submission.author.name}, your post has been removed because you're "
