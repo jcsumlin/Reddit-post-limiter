@@ -14,8 +14,8 @@ reddit = praw.Reddit(client_id=config.get("reddit", "client_id", fallback=os.env
                      password=config.get("reddit", "mod_password", fallback=os.environ.get("MOD_PASSWORD"))
                      )
 
-MAX_POSTS = config.get("rule", "max_posts", fallback=os.environ.get("MAX_POSTS", 5))
-COOLDOWN_HRS = config.get("rule", "cooldown_in_hours", fallback=os.environ.get("COOLDOWN_IN_HOURS", 5))
+MAX_POSTS = int(config.get("rule", "max_posts", fallback=os.environ.get("MAX_POSTS", 5)))
+COOLDOWN_HRS = int(config.get("rule", "cooldown_in_hours", fallback=os.environ.get("COOLDOWN_IN_HOURS", 5)))
 
 REMOVAL_REASON_ID = config.get("rule", "removal_reason_id", fallback=os.environ.get("REMOVAL_REASON_ID"))
 SUBREDDIT = config.get("rule", "subreddit", fallback=os.environ.get("SUBREDDIT"))
