@@ -10,3 +10,8 @@ If you are running locally without docker here is how you run it
 
 
 If you are running this with docker just make sure all the ENV variables are set and you'll be good to go!
+
+
+# Links:
+
+[Removal Reason ID](https://praw.readthedocs.io/en/latest/code_overview/other/submissionmoderation.html#praw.models.reddit.submission.SubmissionModeration.remove) 
