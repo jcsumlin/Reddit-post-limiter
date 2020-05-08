@@ -35,8 +35,11 @@ if not SUBREDDIT:
     logger.exception("No Subreddit set, set one in the environment variables or config.ini file")
 subreddit = reddit.subreddit(SUBREDDIT)
 for submission in subreddit.stream.submissions():
-    if submission.author.is_mod:
-        logger.debug("Post is by mod, ignoring")
+    mods = []
+    for mod in subreddit.moderator():
+        mods.append(mod.id)
+    if submission.author.id in mods:
+        logger.debug(f"Post is by mod, ignoring {submission.id}")
         continue
     # Track posts for users
     post = Post(submission.author.id, submission.created_utc, submission.id)
