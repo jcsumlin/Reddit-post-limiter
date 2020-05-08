@@ -68,6 +68,7 @@ for submission in subreddit.stream.submissions():
                                        f"please reply to this comment.")
             comment.mod.distinguish(sticky=True)
             logger.success("Successfully Removed and commented")
+            users[submission.author.id].pop()
         else:
             users[submission.author.id].pop(0)
             logger.debug("Popped from list")
