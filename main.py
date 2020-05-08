@@ -41,6 +41,9 @@ for submission in subreddit.stream.submissions():
     if submission.author.id in mods:
         logger.debug(f"Post is by mod, ignoring {submission.id}")
         continue
+    if submission.approved:
+        logger.debug(f"Submission was approved by a mod {submission.id}")
+        continue
     # Track posts for users
     post = Post(submission.author.id, submission.created_utc, submission.id)
     if submission.author.id not in users.keys():
